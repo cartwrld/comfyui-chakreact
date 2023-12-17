@@ -47,7 +47,7 @@ export class Resolution extends Component<ResoultionProps, ResolutionState> {
                     justifyContent={'space-around'}
                     bg={'gray.100'}
                     w={'100%'}
-                    p={6}
+                    p={5}
                     rounded={'10px'}
                     boxShadow={'rgba(0, 0, 0, 0.15) 0px 2px 8px'}>
                     <Flex w={'100%'} justifyContent={'space-around'} px={5} flexDir={'column'}
@@ -61,7 +61,7 @@ export class Resolution extends Component<ResoultionProps, ResolutionState> {
                                 value={width}
                                 onChange={this.handleWidthChange}
                                 textAlign={'center'} fontWeight={'semibold'} fontSize={'1.2em'}
-                                color={'black'} bg={'#f4f9ff'} shadow={'inset rgba(0, 0, 0, 0.15) 0px 0px 2px'}>
+                                color={'gray.900'} bg={'#f4f9ff'} shadow={'inset rgba(0, 0, 0, 0.15) 0px 0px 2px'}>
                             </Input>
                         </Center>
                     </Flex>
@@ -79,7 +79,7 @@ export class Resolution extends Component<ResoultionProps, ResolutionState> {
                                 value={height}
                                 onChange={this.handleHeightChange}
                                 textAlign={'center'} fontWeight={'semibold'} fontSize={'1.2em'}
-                                color={'black'} bg={'#f4f9ff'} shadow={'inset rgba(0, 0, 0, 0.15) 0px 0px 2px'}>
+                                color={'gray.900'} bg={'#f4f9ff'} shadow={'inset rgba(0, 0, 0, 0.15) 0px 0px 2px'}>
                             </Input>
                         </Center>
                     </Flex>

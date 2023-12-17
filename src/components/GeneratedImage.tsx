@@ -4,11 +4,13 @@ import Image from "next/image";
 
 type GeneratedImageProps = {
     imageUrl: string
+    width: number;
+    height: number;
 }
 const API_URL = `http://localhost:3004`
 export class GeneratedImage extends Component<GeneratedImageProps> {
     render() {
-        const { imageUrl } = this.props; // Get the imageUrl from props
+        const { imageUrl, width, height } = this.props; // Get the imageUrl from props
         console.log(imageUrl)
         return (
             <Center bg={'white'} p={3} rounded={'8px'} boxShadow={'rgba(0, 0, 0, 0.15) 0px 2px 8px'}>
@@ -16,8 +18,8 @@ export class GeneratedImage extends Component<GeneratedImageProps> {
                     <Image
                         src={`${API_URL}/${imageUrl}`} // Use imageUrl from props
                         alt="Generated Image"
-                        width={512}
-                        height={512}
+                        width={width}
+                        height={height}
                         unoptimized={true}
                     />
                 </Center>

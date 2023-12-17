@@ -12,20 +12,23 @@ import {useState} from "react";
 export default function Home() {
 
     const [generatedImageUrl, setGeneratedImageUrl] = useState('https://i.imgur.com/nuwmvhQ.png'); // Initial placeholder image
+    const [genImageWidth, setGenImageWidth] = useState(512); // Initial placeholder image
+    const [genImageHeight, setGenImageHeight] = useState(512); // Initial placeholder image
 
-    const handleUpdateGeneratedImg = (url:string): void  => {
+    const handleUpdateGeneratedImg = (url:string, width:number, height:number): void  => {
         setGeneratedImageUrl(url); // Update the state with the new image URL
+        setGenImageWidth(width);
+        setGenImageHeight(height);
     };
 
     return (
         <main className={styles.main}>
-            <Flex flexDir={'column'}>
-                <BaseShell padding={5}>
-                    <GeneratedImage imageUrl={generatedImageUrl} />
-                </BaseShell>
+            <Flex flexDir={'row'} justifyContent={'space-around'} w={'98%'} alignItems={'center'}>
                 <BaseShell padding={0}>
-                    {/* Pass the callback to the KSampler */}
                     <KSampler onGeneration={handleUpdateGeneratedImg}/>
+                </BaseShell>
+                <BaseShell padding={5}>
+                    <GeneratedImage imageUrl={generatedImageUrl} width={genImageWidth} height={genImageHeight} />
                 </BaseShell>
             </Flex>
         </main>
