@@ -63,26 +63,24 @@ export class Prompts extends Component<PromptProps, PromptState> {
                 </Center>
                 <Flex h={'100%'} justifyContent={'space-between'} alignItems={'center'} flexDir={'column'}>
                     <Flex flexDir={'column'} py={0} w={'100%'} justifyContent={'space-around'} px={0} ms={0}
-                          bg={'gray.200'} rounded={'10px'} boxShadow={'rgba(0, 0, 0, 0.15) 0px 2px 3px;'} h={'60%'}>
+                          bg={'gray.200'} rounded={'10px'} h={'60%'}>
                         <Textarea
-                            value={this.state.posprompt}
+                            defaultValue={posprompt}
                             onChange={(e) => this.handlePosPromptChange(e.target.value)}
                             color={'gray.900'} placeholder={'ex. photograph, girl standing in the rain, blonde hair, etc.'}
-                            bg={'#f4f9ff'}
+                            bg={'#f6f8fc'} shadow={'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.10) 0px 1px 2px;'}
                             h={'100%'} border={'none'} p={3} resize={'none'} rounded={'10px'}>
-                            {posprompt}
                         </Textarea>
                     </Flex>
                     <Flex flexDir={'column'} py={0} w={'100%'} justifyContent={'space-around'} px={0} ms={0}
-                          bg={'gray.100'} rounded={'10px'} boxShadow={'rgba(0, 0, 0, 0.15) 0px 2px 3px'}
+                          bg={'gray.100'} rounded={'10px'}
                         h={'37%'}>
                         <Textarea
-                            value={this.state.negprompt}
+                            defaultValue={negprompt}
                             onChange={(e) => this.handleNegPromptChange(e.target.value + '')}
                             color={'gray.900'} placeholder={'ex. bad hands, bad eyes, extra limbs, etc.'}
-                            bg={'#f4f9ff'}
+                            bg={'#f6f8fc'} shadow={'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.10) 0px 1px 2px;'}
                             h={'100%'} border={'none'} p={3} resize={'none'} rounded={'10px'}>
-                            {negprompt}
                         </Textarea>
                     </Flex>
                 </Flex>

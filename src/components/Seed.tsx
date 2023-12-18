@@ -1,21 +1,12 @@
 import React, { Component } from "react";
-import {
-    Box, Button,
-    Center,
-    Flex,
-    Heading, Input,
-} from "@chakra-ui/react";
+import { Button, Center, Flex, Heading, Input } from "@chakra-ui/react";
 import { FaRandom } from "react-icons/fa";
 
 type SeedState = {
     seedValue: number;
 };
 type SeedProps = {
-    title: string;
-    min: number;
-    max: number;
-    value: number;
-    onValueChange: (newValue: number) => void;
+    onSeedChange: (newValue: number) => void;
 };
 
 export class Seed extends Component<SeedProps, SeedState> {
@@ -23,7 +14,7 @@ export class Seed extends Component<SeedProps, SeedState> {
         super(props);
 
         this.state = {
-            seedValue: props.value,
+            seedValue: Math.floor(Math.random() * 1844674407370955),
         };
 
         this.genRandomNum = this.genRandomNum.bind(this);
@@ -32,7 +23,7 @@ export class Seed extends Component<SeedProps, SeedState> {
     handleSeedChange = (val: number) => {
         this.setState({ seedValue: val });
         // Call the onValueChange prop with the new value
-        this.props.onValueChange(val);
+        this.props.onSeedChange(val);
     };
 
     genRandomNum() {
@@ -42,7 +33,7 @@ export class Seed extends Component<SeedProps, SeedState> {
     }
 
     render() {
-        const { title } = this.props; // Destructuring props for easier access
+
         const { seedValue } = this.state; // Destructuring state for easier access
 
         return (
@@ -58,14 +49,14 @@ export class Seed extends Component<SeedProps, SeedState> {
                 rounded={'10px'}
                 boxShadow={'rgba(0, 0, 0, 0.15) 0px 2px 8px'}>
                 <Center w={'100%'}>
-                    <Heading fontSize={'1.7em'} py={2} px={5} color={'gray.700'}>{title}</Heading>
+                    <Heading fontSize={'1.7em'} py={2} px={5} color={'gray.700'}>Seed</Heading>
                 </Center>
                 <Center pb={2}>
                     <Button bg={'gray.100'} />
                     <Input
                         color={'gray.900'}
-                        bg={'#f4f9ff'}
-                        shadow={'inset rgba(0, 0, 0, 0.15) 0px 0px 2px'}
+                        bg={'#f6f8fc'}
+                        shadow={'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.05) 0px 1px 2px;'}
                         fontWeight={'semibold'}
                         fontSize={'1.2em'}
                         textAlign={'center'}

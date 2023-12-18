@@ -1,32 +1,33 @@
 import React, {Component} from "react";
-import {Center} from "@chakra-ui/react";
+import {Center, Heading} from "@chakra-ui/react";
 import Image from "next/image";
 
 type GeneratedImageProps = {
     imageUrl: string
     width: number;
     height: number;
+    isLoading: boolean;
 }
 const API_URL = `http://localhost:3004`
+
 export class GeneratedImage extends Component<GeneratedImageProps> {
     render() {
-        const { imageUrl, width, height } = this.props; // Get the imageUrl from props
+        const {imageUrl, width, height, isLoading} = this.props; // Get the imageUrl from props
         console.log(imageUrl)
         return (
             <Center bg={'white'} p={3} rounded={'8px'} boxShadow={'rgba(0, 0, 0, 0.15) 0px 2px 8px'}>
                 <Center bg={'white'} boxShadow={'rgba(0, 0, 0, 0.15) 0px 2px 8px'}>
-                    <Image
-                        src={`${API_URL}/${imageUrl}`} // Use imageUrl from props
-                        alt="Generated Image"
-                        width={width}
-                        height={height}
-                        unoptimized={true}
-                    />
+                    {isLoading
+                        ? (<Center><Heading>Generating...</Heading></Center>)
+                        : (<Image src={`${API_URL}/${imageUrl}`} alt="Generated Image" width={512} height={512}
+                                  unoptimized={true}/>)
+                    }
                 </Center>
             </Center>
         )
     }
 }
+
 // Note the changes:
 
 // export class GeneratedImage extends Component<{imageUrl : string}, GenImgState> {

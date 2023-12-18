@@ -99,7 +99,32 @@ body {
 
 option {
   font-weight: 500;
+
 }
+
+/* Style for all option elements */
+option {
+  background-color: palegreen; /* Default background */
+  /*color: black; !* Text color *!*/
+  padding: 5px 10px; /* Padding inside the option */
+}
+
+/* Style for option elements when they are hovered over */
+option:hover {
+  background-color: #e76161; /* Light grey background on hover */
+}
+
+/* Style for option elements when they are focused */
+option:focus {
+  background-color: #64b1e1; /* Blue background when the option is focused */
+}
+
+/* Style for option elements when they are selected */
+option:checked,
+option:selected {
+  background-color: #e3c6ff; /* Lighter blue background when the option is selected */
+}
+
 
 a {
   color: inherit;

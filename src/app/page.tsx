@@ -14,11 +14,14 @@ export default function Home() {
     const [generatedImageUrl, setGeneratedImageUrl] = useState('https://i.imgur.com/nuwmvhQ.png'); // Initial placeholder image
     const [genImageWidth, setGenImageWidth] = useState(512); // Initial placeholder image
     const [genImageHeight, setGenImageHeight] = useState(512); // Initial placeholder image
+    const [isLoading, setIsLoading] = useState(false); // Initial placeholder image
 
-    const handleUpdateGeneratedImg = (url:string, width:number, height:number): void  => {
+    const handleUpdateGeneratedImg = (url:string, width:number, height:number, isLoading:boolean): void  => {
         setGeneratedImageUrl(url); // Update the state with the new image URL
         setGenImageWidth(width);
         setGenImageHeight(height);
+        setIsLoading(isLoading)
+
     };
 
     return (
@@ -28,7 +31,7 @@ export default function Home() {
                     <KSampler onGeneration={handleUpdateGeneratedImg}/>
                 </BaseShell>
                 <BaseShell padding={5}>
-                    <GeneratedImage imageUrl={generatedImageUrl} width={genImageWidth} height={genImageHeight} />
+                    <GeneratedImage isLoading={false} imageUrl={generatedImageUrl} width={genImageWidth} height={genImageHeight} />
                 </BaseShell>
             </Flex>
         </main>

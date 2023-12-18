@@ -61,7 +61,8 @@ export class Resolution extends Component<ResoultionProps, ResolutionState> {
                                 value={width}
                                 onChange={this.handleWidthChange}
                                 textAlign={'center'} fontWeight={'semibold'} fontSize={'1.2em'}
-                                color={'gray.900'} bg={'#f4f9ff'} shadow={'inset rgba(0, 0, 0, 0.15) 0px 0px 2px'}>
+                                color={'gray.900'} bg={'#f6f8fc'}
+                                shadow={'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.05) 0px 1px 2px;'}>
                             </Input>
                         </Center>
                     </Flex>
@@ -79,7 +80,8 @@ export class Resolution extends Component<ResoultionProps, ResolutionState> {
                                 value={height}
                                 onChange={this.handleHeightChange}
                                 textAlign={'center'} fontWeight={'semibold'} fontSize={'1.2em'}
-                                color={'gray.900'} bg={'#f4f9ff'} shadow={'inset rgba(0, 0, 0, 0.15) 0px 0px 2px'}>
+                                color={'gray.900'} bg={'#f6f8fc'}
+                                shadow={'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.05) 0px 1px 2px;'}>
                             </Input>
                         </Center>
                     </Flex>
