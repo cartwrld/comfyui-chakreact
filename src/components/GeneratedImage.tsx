@@ -1,6 +1,7 @@
 import React, {Component} from "react";
-import {Center, Heading} from "@chakra-ui/react";
+import {Box, Center, Flex, Heading} from "@chakra-ui/react";
 import Image from "next/image";
+import {Overlay} from "next/dist/client/components/react-dev-overlay/internal/components/Overlay";
 
 type GeneratedImageProps = {
     imageUrl: string
@@ -12,16 +13,21 @@ const API_URL = `http://localhost:3004`
 
 export class GeneratedImage extends Component<GeneratedImageProps> {
     render() {
-        const {imageUrl, width, height, isLoading} = this.props; // Get the imageUrl from props
+        const {imageUrl, width, height} = this.props; // Get the imageUrl from props
         console.log(imageUrl)
         return (
             <Center bg={'white'} p={3} rounded={'8px'} boxShadow={'rgba(0, 0, 0, 0.15) 0px 2px 8px'}>
                 <Center bg={'white'} boxShadow={'rgba(0, 0, 0, 0.15) 0px 2px 8px'}>
-                    {isLoading
-                        ? (<Center><Heading>Generating...</Heading></Center>)
-                        : (<Image src={`${API_URL}/${imageUrl}`} alt="Generated Image" width={512} height={512}
-                                  unoptimized={true}/>)
+                    {
+
+                             width > height ? (
+                                    <Image src={`${API_URL}/${imageUrl}`} alt="Generated Image" width={width} height={768}
+                                           unoptimized={true}/>)
+                                :  (<Image src={`${API_URL}/${imageUrl}`} alt="Generated Image" width={768} height={height}
+                                               unoptimized={true}/>)
+
                     }
+
                 </Center>
             </Center>
         )

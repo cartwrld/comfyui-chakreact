@@ -15,6 +15,13 @@ import {Seed} from "@/components/Seed";
 import {Prompts} from "@/components/Prompts";
 import {Checkpoint} from "@/components/Checkpoint";
 import {SamplerScheduler} from "@/components/SamplerScheduler";
+import {AiFillCloud, AiOutlineLoading} from "react-icons/ai";
+import { FcPicture } from "react-icons/fc";
+import { MdOutlineCollections } from "react-icons/md";
+import { CgSpinnerTwoAlt } from "react-icons/cg";
+import { FaSpinner } from "react-icons/fa";
+import { FaArrowsRotate } from "react-icons/fa6";
+import { ImSpinner6 } from "react-icons/im";
 
 
 
@@ -87,8 +94,9 @@ export class KSampler extends Component<{onGeneration : (path: string, width: nu
         try {
             const imagePath = await execGeneration(wf);
             console.log('Generated image path:', imagePath);
-            this.setState({isLoading: false})
+
             this.props.onGeneration(imagePath, this.state.width, this.state.height, this.state.isLoading)
+            this.setState({isLoading: false})
         } catch (error) {
             // Handle the error, e.g., show an error message to the user
             console.error('Error generating image:', error);
@@ -97,6 +105,9 @@ export class KSampler extends Component<{onGeneration : (path: string, width: nu
     }
 
     render() {
+
+        const { isLoading } = this.state
+
         return (
             <>
                 <Flex w={'99%'} my={'12px'} bg={'gray.300'} flexDir={'row'} rounded={'7px'} p={2} mb={'4px'}>
@@ -125,7 +136,11 @@ export class KSampler extends Component<{onGeneration : (path: string, width: nu
                 <Box bg={'gray.300'} rounded={'10px'} w={'100%'} px={3} mt={1} mb={3}>
                     <Button onClick={() => this.handleGenerateClick()} w={'100%'} h={'100%'}
                             boxShadow={'rgba(0, 0, 0, 0.15) 0px 2px 8px'} rounded={'7px'} py={3}>
-                        Generate
+                        {
+                            isLoading
+                                ? (<ImSpinner6 fontSize={'24px'} style={{ animation: 'rotate 2s linear infinite' }}/>)
+                                : ( <Center fontSize={'1.25em'}>Generate</Center>)
+                        }
                     </Button>
                 </Box>
 

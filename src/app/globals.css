@@ -120,9 +120,21 @@ option:focus {
 }
 
 /* Style for option elements when they are selected */
-option:checked,
-option:selected {
+option:checked {
   background-color: #e3c6ff; /* Lighter blue background when the option is selected */
+}
+
+/*.rotatingIcon {*/
+/*  animation: rotate 2s linear infinite;*/
+/*}*/
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 

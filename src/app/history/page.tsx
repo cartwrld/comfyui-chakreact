@@ -9,7 +9,7 @@ import {useState} from "react";
 
 
 
-export default function Home() {
+export default function History() {
 
     const [generatedImageUrl, setGeneratedImageUrl] = useState('https://i.imgur.com/nuwmvhQ.png'); // Initial placeholder image
     const [genImageWidth, setGenImageWidth] = useState(768); // Initial placeholder image
