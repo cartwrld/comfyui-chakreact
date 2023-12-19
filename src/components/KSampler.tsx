@@ -22,6 +22,7 @@ import { CgSpinnerTwoAlt } from "react-icons/cg";
 import { FaSpinner } from "react-icons/fa";
 import { FaArrowsRotate } from "react-icons/fa6";
 import { ImSpinner6 } from "react-icons/im";
+import { VersionRG } from "@/components/VersionRG";
 
 
 
@@ -40,6 +41,7 @@ type KSamplerState = {
     ckpt: string;
     onGeneration: (imageUrl: string, width: number, height: number) => void;
     isLoading: boolean;
+    version: string;
 };
 
 
@@ -56,7 +58,8 @@ export class KSampler extends Component<{onGeneration : (path: string, width: nu
         sampler: 'euler',
         scheduler: 'karras',
         ckpt: 'dynavision_v0557.safetensors',
-        isLoading: false
+        isLoading: false,
+        version: 'SDXL'
     };
 
     handlePosPromptChange = (pos: string) => { this.setState({ pos_prompt: pos }) }
@@ -68,6 +71,20 @@ export class KSampler extends Component<{onGeneration : (path: string, width: nu
     handleStepsChange = (newSteps: number) => { this.setState({ steps: newSteps }) }
     handleCFGChange = (newCFG: number) => { this.setState({ cfg: newCFG }) }
     handleSeedChange = (newSeed: number) => { this.setState({ seed: newSeed }) }
+    handleVersionChange = (newVersion: string) => {
+        this.setState({version: newVersion})
+
+        if (this.state.version === 'TURBO') {
+            this.setState({
+                ckpt: 'sdxl_turbo_v1.safetensors',
+                steps: 3,
+                cfg: 1.2,
+                sampler: 'euler',
+                width: 512,
+                height: 512,
+            })
+        }
+    }
 
 
     async handleGenerateClick() {
@@ -112,6 +129,7 @@ export class KSampler extends Component<{onGeneration : (path: string, width: nu
             <>
                 <Flex w={'99%'} my={'12px'} bg={'gray.300'} flexDir={'row'} rounded={'7px'} p={2} mb={'4px'}>
                     <Flex w={'100%'} justifyContent={'space-around'}  flexDir={'column'} rounded={'6px'}>
+                        <VersionRG onVersionChange={this.handleVersionChange} />
                         <Checkpoint onCKPTChange={this.handleCKPTChange} />
                         <SamplerScheduler
                             onSamplerChange={this.handleSamplerChange}

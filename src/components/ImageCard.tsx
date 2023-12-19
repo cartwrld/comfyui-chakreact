@@ -144,7 +144,6 @@ export class ImageCard extends Component<{}, CardHolderState> {
                           paddingTop: '10px', backgroundColor: `gray.900`
                       }
                   }}>
-
                 {
                     paths.map((url, index) => (
                         getHistoryImageCard(url, index)

@@ -106,7 +106,6 @@ export class Resolution extends Component<ResoultionProps, ResolutionState> {
                             onClick={() => this.handleResolutionChange('1024 x 1024')}>Square</Button>
                     </ButtonGroup>
                 </Flex>
-                <Input type={'file'}/>
             </Flex>
         )
     }

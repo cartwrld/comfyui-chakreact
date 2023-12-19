@@ -5,8 +5,10 @@ import {Center, Flex} from "@chakra-ui/react";
 import {KSampler} from "@/components/KSampler";
 import {GeneratedImage} from "@/components/GeneratedImage";
 import {BaseShell} from "@/components/BaseShell";
-import {useState} from "react";
+import React, {useState} from "react";
 import {auto} from "@popperjs/core";
+import Dashboard from "@/components/Dashboard";
+import NavDrawer from "@/components/NavDrawer";
 
 
 
@@ -26,7 +28,11 @@ export default function Home() {
     };
 
     return (
+        <>
+            <NavDrawer></NavDrawer>
         <main className={styles.main}>
+
+
             <Flex flexDir={'row'} justifyContent={'space-around'} w={'98%'} alignItems={'center'}>
                 <BaseShell p={0} w={'auto'}>
                     <KSampler onGeneration={handleUpdateGeneratedImg}/>
@@ -36,6 +42,7 @@ export default function Home() {
                 </BaseShell>
             </Flex>
         </main>
+        </>
     );
 }
 
