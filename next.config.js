@@ -3,13 +3,15 @@ const nextConfig = {
     images: {
         remotePatterns: [
             {
-                protocol: 'https',
-                hostname: 'imgur.com',
-                port: '',
-                pathname: '/CtkIAQO.png',
+                protocol: 'http',
+                hostname: 'localhost',
+                port: '3004',
+                pathname: '/images/*',
             },
         ],
+
     },
+
 }
 
 module.exports = nextConfig

@@ -19,15 +19,12 @@ export class GeneratedImage extends Component<GeneratedImageProps> {
             <Center bg={'white'} p={3} rounded={'8px'} boxShadow={'rgba(0, 0, 0, 0.15) 0px 2px 8px'}>
                 <Center bg={'white'} boxShadow={'rgba(0, 0, 0, 0.15) 0px 2px 8px'}>
                     {
-
-                             width > height ? (
-                                    <Image src={`${API_URL}/${imageUrl}`} alt="Generated Image" width={width} height={768}
-                                           unoptimized={true}/>)
-                                :  (<Image src={`${API_URL}/${imageUrl}`} alt="Generated Image" width={768} height={height}
-                                               unoptimized={true}/>)
-
+                        width > height ? (
+                                <Image src={`${API_URL}/${imageUrl}`} alt="Generated Image" width={width} height={768}
+                                       unoptimized={true}/>)
+                            : (<Image src={`${API_URL}/${imageUrl}`} alt="Generated Image" width={768} height={height}
+                                      unoptimized={true}/>)
                     }
-
                 </Center>
             </Center>
         )

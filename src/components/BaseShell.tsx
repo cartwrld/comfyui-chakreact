@@ -5,14 +5,16 @@ import {KSampler} from "@/components/KSampler";
 
 
 type BaseShellProps = {
-    padding: number | string;
+    p: number | string;
+    w: number | string;
+    h: number | string;
     children: ReactNode
 };
 export class BaseShell extends Component<BaseShellProps> {
     render() {
         return (
-            <Flex bg='gray.50' p={3} rounded={'20px'} my={0} mb={0}>
-                <Center p={this.props.padding} width={'100%'} flexDir={'column'} rounded={'10px'}  boxShadow={'inner'} bg={'gray.300'}>
+            <Flex bg='gray.50' p={3} rounded={'20px'} my={0} mb={0} w={this.props.w} h={this.props.h}>
+                <Center p={this.props.p} width={'100%'} flexDir={'column'} rounded={'10px'} boxShadow={'inner'} bg={'gray.300'}>
                     {this.props.children}
                 </Center>
             </Flex>

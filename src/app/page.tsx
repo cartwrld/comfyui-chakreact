@@ -6,6 +6,7 @@ import {KSampler} from "@/components/KSampler";
 import {GeneratedImage} from "@/components/GeneratedImage";
 import {BaseShell} from "@/components/BaseShell";
 import {useState} from "react";
+import {auto} from "@popperjs/core";
 
 
 
@@ -27,10 +28,10 @@ export default function Home() {
     return (
         <main className={styles.main}>
             <Flex flexDir={'row'} justifyContent={'space-around'} w={'98%'} alignItems={'center'}>
-                <BaseShell padding={0}>
+                <BaseShell p={0} w={'auto'}>
                     <KSampler onGeneration={handleUpdateGeneratedImg}/>
                 </BaseShell>
-                <BaseShell padding={5}>
+                <BaseShell p={5} w={'auto'}>
                     <GeneratedImage isLoading={isLoading} imageUrl={generatedImageUrl} width={genImageWidth} height={genImageHeight} />
                 </BaseShell>
             </Flex>

@@ -60,7 +60,6 @@ type CKPTState = {
 
 type CKPTProps = {
     onCKPTChange: (newCKPT: string) => void;
-
 }
 
 export class Checkpoint extends Component<CKPTProps, CKPTState> {
@@ -86,15 +85,9 @@ export class Checkpoint extends Component<CKPTProps, CKPTState> {
 
         return (
             <Flex
-                flexDir={'column'}
-                justifyContent={'space-around'}
-                w={'100%'}
-                bg={'gray.100'}
-                px={5}
-                py={2}
-                pb={'15px'}
-                mb={3}
-                rounded={'10px'}
+                flexDir={'column'} justifyContent={'space-around'}
+                w={'100%'} bg={'gray.100'} rounded={'10px'}
+                px={5} py={2} pb={'15px'} mb={3}
                 boxShadow={'rgba(0, 0, 0, 0.15) 0px 2px 8px'} overflow={'none'}>
                 <Center w={'100%'}>
                     <Heading fontSize={'1.7em'} py={2} px={5} color={'gray.700'}>Checkpoint</Heading>
