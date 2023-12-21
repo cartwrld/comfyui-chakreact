@@ -2,6 +2,7 @@
 
 import styles from '../page.module.css'
 import {
+    Box,
 
     Flex,
 
@@ -12,18 +13,20 @@ import {ImageCard} from "@/components/ImageCard";
 import {BiPlus} from "react-icons/bi";
 import NavDrawer from "@/components/NavDrawer";
 import DashboardOG from "@/components/DashboardOG";
+import Dashboard from "@/components/Dashboard";
 
 
-export default function History() {
+export default function Testing() {
 
     return (
         <>
-            <DashboardOG currentPage={'history'}/>
+            {/*<NavDrawer></NavDrawer>*/}
+            <Dashboard currentPage={'testing'}/>
             <main className={styles.main}>
 
-                <Flex w={'100%'}>
-                    <ImageCard/>
-                </Flex>
+                <Box p={10} m={0} bg={'blueviolet'}>
+
+                </Box>
             </main>
         </>
     );

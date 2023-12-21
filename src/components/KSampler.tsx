@@ -74,16 +74,16 @@ export class KSampler extends Component<{onGeneration : (path: string, width: nu
     handleVersionChange = (newVersion: string) => {
         this.setState({version: newVersion})
 
-        if (this.state.version === 'TURBO') {
-            this.setState({
-                ckpt: 'sdxl_turbo_v1.safetensors',
-                steps: 3,
-                cfg: 1.2,
-                sampler: 'euler',
-                width: 512,
-                height: 512,
-            })
-        }
+        // if (this.state.version === 'TURBO') {
+        //     this.setState({
+        //         ckpt: 'sdxl_turbo_v1.safetensors',
+        //         steps: 3,
+        //         cfg: 1.2,
+        //         sampler: 'euler',
+        //         width: 512,
+        //         height: 512,
+        //     })
+        // }
     }
 
 
@@ -103,7 +103,7 @@ export class KSampler extends Component<{onGeneration : (path: string, width: nu
             this.state.scheduler,
             this.state.width,
             this.state.height,
-            true // assuming sdxl is always true for this example
+            this.state.version // assuming sdxl is always true for this example
         );
 
         if (this.state.pos_prompt.toString() === '') wf.setPrompt('empty');

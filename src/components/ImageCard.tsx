@@ -24,26 +24,16 @@ export class ImageCard extends Component<{}, CardHolderState> {
         this.state = {
             paths: [],
         };
-
     }
 
 
     async retrieveHistory() {
         try {
-
             let historyJSON = await getHistory();
-            // let historyOBJ = JSON.parse(historyJSON);
-            // console.log(historyOBJ)
-
-            // console.log(typeof historyJSON)
-
             historyJSON = historyJSON.replaceAll('"', '')
             historyJSON = historyJSON.replaceAll('[', '')
             historyJSON = historyJSON.replaceAll(']', '')
-            // console.log(historyJSON)
             const paths = historyJSON.split(',')
-            // console.log(paths)
-
 
             this.setState({paths: paths})
         } catch (error) {
@@ -111,9 +101,9 @@ export class ImageCard extends Component<{}, CardHolderState> {
         const {paths} = this.state
 
         return (
-            <Flex flexDir={'column'} justifyContent={'center'} overflow={'hidden'}>
+            <Flex flexDir={'column'} minW={'100%'} mt={0} justifyContent={'start'}>
 
-            <Center pb={10} bg={''}>
+            <Center p={10} bg={'gray.700'} roundedTopRight={'15px'}>
                 <ButtonGroup>
                     <Button
                         bg={'gray.300'} shadow={'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.05) 0px 1px 2px;'}
@@ -131,17 +121,19 @@ export class ImageCard extends Component<{}, CardHolderState> {
                         onClick={() => this.retrieveLandscape()}>Landscape</Button>
                 </ButtonGroup>
             </Center>
-        {/*<Flex flexDir={'column'} justifyContent={'center'} >*/}
-            <Flex flexWrap={'wrap'} bg={'none'} maxH={'78vh'}
+        <Flex flexDir={'column'} justifyContent={'center'} overflow={'hidden'} w={'100%'}>
+
+            {/*<Flex flexDir={'column'} justifyContent={'center'} >*/}
+            <Flex flexWrap={'wrap'} bg={'none'} maxH={'85vh'} minH={'85vh'} me={5}
                   justifyContent={'space-around'}
                   overflowX={'hidden'} overflowY={'scroll'}
                   sx={{
                       '&::-webkit-scrollbar': { // This block of code needs to be here in order for browsers other than firefox to display the scrollbar
                           width: '16px', marginTop: '10px', borderRightRadius: '8px',
                       }, '&::-webkit-scrollbar-thumb': {
-                          backgroundColor: `gray.600`, marginTop: '10px', borderRadius: '8px',
+                          backgroundColor: `gray.300`, marginTop: '10px', borderRadius: '8px',
                       }, '&::-webkit-scrollbar-track': {
-                          paddingTop: '10px', backgroundColor: `gray.900`
+                          marginTop: '30px', paddingTop: '0px', backgroundColor: `gray.700`, borderRadius: '8px'
                       }
                   }}>
                 {
@@ -151,6 +143,7 @@ export class ImageCard extends Component<{}, CardHolderState> {
                 }
             </Flex>
         </Flex>
+            </Flex>
         // </Flex>
 
 
@@ -160,14 +153,15 @@ export class ImageCard extends Component<{}, CardHolderState> {
 
 function getHistoryImageCard(url: string, index: number) {
     return (
-        <Button w={'fit-content'} h={'fit-content'} p={0} m={0} >
+        <Button w={'fit-content'} h={'fit-content'} p={0} m={10} key={index}>
 
-        <Flex p={0.5} justifyContent={'center'} alignContent={'center'} m={0}>
-            <Center bg={'gray.200'} rounded={'8px'} boxShadow={'rgba(0, 0, 0, 0.15) 0px 2px 8px'} height={'fit-content'} p={3}>
+            <Flex p={0} justifyContent={'center'} alignContent={'center'} m={0}>
+                <Center bg={'gray.200'} rounded={'8px'} boxShadow={'rgba(0, 0, 0, 0.15) 0px 2px 8px'}
+                        height={'fit-content'} p={3}>
 
-                <Image key={index} src={`${API_URL}/${url}`} alt={`image-${index}`} width={512} height={512}/>
-            </Center>
-        </Flex>
+                    <Image key={index} src={`${API_URL}/${url}`} alt={`image-${index}`} width={512} height={512}/>
+                </Center>
+            </Flex>
         </Button>
     )
 }

@@ -43,10 +43,13 @@ export default function NavDrawer() {
                     <DrawerBody>
                         <Stack>
                             <Link href="/" passHref>
-                            <Button onClick={handleGenerateClick}>Generate</Button>
+                            <Button w={'100%'}>Generate</Button>
                             </Link>
                             <Link href="/history" passHref>
-                            <Button onClick={handleHistoryClick}>History</Button>
+                            <Button w={'100%'}>History</Button>
+                            </Link>
+                            <Link href="/testing" passHref>
+                                <Button w={'100%'}>Testing</Button>
                             </Link>
                         </Stack>
                     </DrawerBody>

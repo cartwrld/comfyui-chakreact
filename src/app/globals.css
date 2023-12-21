@@ -97,6 +97,39 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+
+
+
+
+
+
+
+
+
+/*.rotatingIcon {*/
+/*  animation: rotate 2s linear infinite;*/
+/*}*/
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 option {
   font-weight: 500;
 
@@ -124,18 +157,7 @@ option:checked {
   background-color: #e3c6ff; /* Lighter blue background when the option is selected */
 }
 
-/*.rotatingIcon {*/
-/*  animation: rotate 2s linear infinite;*/
-/*}*/
 
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
 
 a {

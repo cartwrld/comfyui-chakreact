@@ -7,7 +7,7 @@ export default class Workflow {
     private cfg: number;
     private width: number;  // Assuming width and height should be numbers
     private height: number;
-    private sdxl: boolean;
+    private version: string;
     private prefix: string;
     private seed: number;
     private sampler: string;
@@ -15,7 +15,7 @@ export default class Workflow {
     private ckpt: string;
 
     constructor(ckpt: string, posprompt: string, negprompt: string, seed?: number, steps?: number, cfg?: number,
-                sampler?: string, scheduler?: string, width?: number, height?: number, sdxl?: boolean,) {
+                sampler?: string, scheduler?: string, width?: number, height?: number, version?: string,) {
 
         this.ckpt = ckpt || 'dynavisionXL_v0557'
         this.pos_prompt = this.checkForEmptyPrompt(posprompt)
@@ -27,7 +27,7 @@ export default class Workflow {
         this.scheduler = scheduler || 'karras'
         this.width = width || 1024
         this.height = height || 1024
-        this.sdxl = sdxl || true
+        this.version = version || 'SDXL'
         this.prefix = this.setPrefix(this.pos_prompt)
     }
     setPrefix(p: string): string  {

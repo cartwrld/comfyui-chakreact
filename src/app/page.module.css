@@ -1,3 +1,24 @@
+@keyframes shrinkDashboard {
+  from  { width: 5%; }
+  to    { width: 20%; }
+}
+
+@keyframes expandDashboard {
+  from  { width: 20%; }
+  to    { width: 5%; }
+}
+
+
+
+.shrink {
+  animation: shrinkDashboard 1s forwards; /* Adjust timing as needed */
+}
+
+.expand {
+  animation: expandDashboard 1s forwards; /* Adjust timing as needed */
+}
+
+
 .main {
   display: flex;
   flex-direction: column;
@@ -8,6 +29,7 @@
   width: 100%;
   /*background: rebeccapurple;*/
   border-radius: 17px;
+  padding-bottom: 28px;
 }
 
 

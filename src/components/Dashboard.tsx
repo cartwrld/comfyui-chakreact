@@ -1,91 +1,82 @@
-import {
-    Button, Center,
-    Flex,
-    Heading,
-    Stack,
-} from "@chakra-ui/react";
+import {Button, Center, Divider, Flex, Heading} from "@chakra-ui/react";
 import React, {Component} from "react";
 import {BiMenu} from "react-icons/bi";
-import Link from "next/link";
-import {useRouter} from 'next/navigation';
-import {router} from "next/client";
 import Image from "next/image";
-import {FaHistory, FaImage, FaImages} from "react-icons/fa";
+import {FaHistory } from "react-icons/fa";
+import {FaCode, FaImages} from 'react-icons/fa6'
+import Router from 'next/router';
+import styles from '../app/page.module.css'
 
 
 type DashboardState = {
-    isOpen: boolean;
-
+    isShrunk: boolean;
 }
 
 type DashboardProps = {
-    onDashboardChange: (newCKPT: string) => void;
     currentPage: string;
 }
 
+// @ts-ignore
 export default class Dashboard extends Component<DashboardProps, DashboardState> {
 
+    constructor(props: DashboardProps) {
+        super(props);
 
-    handleGenerateClick(): void {
-        if (this.props.currentPage !== 'home') router.push('/');
+        this.state = {
+            isShrunk: false,
+        };
     }
 
-    handleHistoryClick() {
-        if (this.props.currentPage !== 'history') router.push('/history');
+    handleToggleAnimation = () => {
+        this.setState({isShrunk: !this.state.isShrunk});
     }
 
-    handleLogoClick() {
-        router.push('/');
+
+    handleGenerateClick = () => {
+        if (this.props.currentPage !== 'home') Router.push('/');
     }
 
-    handleOpenAnimation() {
 
+    handleHistoryClick = () => {
+        if (this.props.currentPage !== 'history') Router.push('/history');
     }
-
-    handleCloseAnimation() {
-
+    handleTestingClick = () => {
+        if (this.props.currentPage !== 'testing') Router.push('/');
     }
 
     render() {
 
+        // const { isShrunk } = this.state
+
         return (
-            <Flex flexDir={'column'} bg={'gray.400'} roundedLeft={'15px'} p={5} justifyContent={'start'}
-                  alignItems={'center'}>
-                <Button onClick={this.handleLogoClick} m={2} rounded={'10px'} bg={'gray.500'} width={'fit-content'}
-                        height={'fit-content'}>
-                    <Image src={'/images/cwlogo_final_transparent.png'} alt={'logo'} width={175} height={175}/>
-                </Button>
-                <Button m={2} onClick={this.handleActionAnimation} rounded={'10px'}>
+            <Flex flexDir={'column'} bg={'gray.500'} roundedTopLeft={'20px'}>
+                <Button onClick={this.handleToggleAnimation} mb={0} rounded={0} roundedTopLeft={'16px'} bg={'gray.500'}
+                        width={'100%'} height={'fit-content'} py={3} justifyContent={'start'}>
                     <BiMenu fontSize={'2em'}/>
-                    <Flex justifyContent={'space-around'} alignItems={'center'} p={4}>
-                        <Heading color={'ghostwhite'} fontSize={'1.7em'}>
-                            CartWrld
-                        </Heading>
-                    </Flex>
-
                 </Button>
-                <Flex flexDir={'column'} w={'100%'}>
-
-                    <Button onClick={this.handleGenerateClick} mb={2} rounded={'10px'}
-                            width={'100%'} height={'fit-content'} py={3} justifyContent={'start'}>
-                        <Flex justifyContent={'start'} alignItems={'center'} w={'100%'}>
-                            <FaImages fontSize={'2.1em' } me={2}/>
-                            <Center ms={4} pb={1} w={'83%'}>
-                                <Heading fontSize={'1.6em'} w={'100%'} >Generate</Heading>
-                            </Center>
-                        </Flex>
-                    </Button>
-                    <Button onClick={this.handleHistoryClick} mb={2} rounded={'10px'}
-                            width={'100%'} height={'fit-content'} py={3} justifyContent={'start'}>
-                        <Flex justifyContent={'start'} alignItems={'center'} w={'100%'}>
-                        <FaHistory fontSize={'2.1em' } me={2}/>
-                            <Center ms={4} pb={1} w={'83%'}>
-                                <Heading fontSize={'1.6em'} w={'100%'} >History</Heading>
-                            </Center>
-                        </Flex>
-                    </Button>
-                </Flex>
+                <Divider/>
+                <Button onClick={this.handleGenerateClick} mb={0} rounded={0} bg={'gray.500'}
+                        width={'100%'} height={'fit-content'} py={3} justifyContent={'start'}>
+                    <FaImages fontSize={'2.1em'} me={2}/>
+                </Button>
+                <Divider/>
+                <Button onClick={this.handleHistoryClick} mb={0} rounded={0} bg={'gray.500'}
+                        width={'100%'} height={'fit-content'} py={3} justifyContent={'start'}>
+                    <FaHistory fontSize={'2.1em'} me={2}/>
+                </Button>
+                <Divider/>
+                <Button onClick={this.handleTestingClick} mb={0} rounded={0} bg={'gray.500'}
+                        width={'100%'} height={'fit-content'} py={3} justifyContent={'start'}>
+                    < FaCode fontSize={'2.1em'} me={2}/>
+                </Button>
+                <Divider/>
             </Flex>
         )
     }
 }
+
+
+
+
+
+
