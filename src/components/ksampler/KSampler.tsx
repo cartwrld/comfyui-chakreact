@@ -1,20 +1,15 @@
 'use client'
 
-import {
-    Box, Button, Center, Flex, Heading, Input, Slider, SliderFilledTrack, SliderThumb,
-    SliderTrack, Textarea
-} from "@chakra-ui/react";
-import {FaFilePen, FaRegTrashCan} from "react-icons/fa6";
+import { Box, Button, Center, Flex } from "@chakra-ui/react";
 import Workflow from "@/utils/Workflow";
 import execGeneration from '@/utils/ComfyUtils'
-import {Component, useEffect, useState} from "react";
-import {MdGraphicEq} from "react-icons/md";
-import {CustomSlider} from "@/components/CustomSlider";
-import {Resolution} from "@/components/Resolution";
-import {Seed} from "@/components/Seed";
-import {Prompts} from "@/components/Prompts";
-import {Checkpoint} from "@/components/Checkpoint";
-import {SamplerScheduler} from "@/components/SamplerScheduler";
+import {Component} from "react";
+import {CustomSlider} from "@/components/ksampler/CustomSlider";
+import {Resolution} from "@/components/ksampler/Resolution";
+import {Seed} from "@/components/ksampler/Seed";
+import {Prompts} from "@/components/ksampler/Prompts";
+import {Checkpoint} from "@/components/ksampler/Checkpoint";
+import {SamplerScheduler} from "@/components/ksampler/SamplerScheduler";
 import {AiFillCloud, AiOutlineLoading} from "react-icons/ai";
 import { FcPicture } from "react-icons/fc";
 import { MdOutlineCollections } from "react-icons/md";
@@ -22,7 +17,8 @@ import { CgSpinnerTwoAlt } from "react-icons/cg";
 import { FaSpinner } from "react-icons/fa";
 import { FaArrowsRotate } from "react-icons/fa6";
 import { ImSpinner6 } from "react-icons/im";
-import { VersionRG } from "@/components/VersionRG";
+import { VersionRG } from "@/components/ksampler/VersionRG";
+
 
 
 
@@ -39,13 +35,17 @@ type KSamplerState = {
     sampler: string;
     scheduler: string;
     ckpt: string;
-    onGeneration: (imageUrl: string, width: number, height: number) => void;
+    onPreGeneration: ( width: number, height: number, isLoading: boolean) => void;
+    onGeneration: (imageUrl: string, isLoading: boolean) => void;
     isLoading: boolean;
     version: string;
 };
 
 
-export class KSampler extends Component<{onGeneration : (path: string, width: number, height: number, isLoading: boolean) => void}, KSamplerState> {
+export class KSampler extends Component<{
+    onPreGeneration : (width: number, height: number, isLoading: boolean) => void,
+    onGeneration : (path: string, isLoading: boolean) => void
+}, KSamplerState> {
     // @ts-ignore
     state: KSamplerState = {
         pos_prompt: '',
@@ -54,7 +54,7 @@ export class KSampler extends Component<{onGeneration : (path: string, width: nu
         cfg: 6,
         width: 1024,
         height: 1024,
-        seed: 1234567890,
+        seed: Math.floor(Math.random() * 1844674407370955),
         sampler: 'euler',
         scheduler: 'karras',
         ckpt: 'dynavision_v0557.safetensors',
@@ -62,6 +62,8 @@ export class KSampler extends Component<{onGeneration : (path: string, width: nu
         version: 'SDXL'
     };
 
+
+    handleIsLoadingChange = (loading: boolean) => { this.setState({ isLoading: loading }) }
     handlePosPromptChange = (pos: string) => { this.setState({ pos_prompt: pos }) }
     handleNegPromptChange = (neg: string) => { this.setState({ neg_prompt: neg }) }
     handleSamplerChange = (newSampler: string) => { this.setState({ sampler: newSampler }) }
@@ -71,51 +73,48 @@ export class KSampler extends Component<{onGeneration : (path: string, width: nu
     handleStepsChange = (newSteps: number) => { this.setState({ steps: newSteps }) }
     handleCFGChange = (newCFG: number) => { this.setState({ cfg: newCFG }) }
     handleSeedChange = (newSeed: number) => { this.setState({ seed: newSeed }) }
-    handleVersionChange = (newVersion: string) => {
-        this.setState({version: newVersion})
-
-        // if (this.state.version === 'TURBO') {
-        //     this.setState({
-        //         ckpt: 'sdxl_turbo_v1.safetensors',
-        //         steps: 3,
-        //         cfg: 1.2,
-        //         sampler: 'euler',
-        //         width: 512,
-        //         height: 512,
-        //     })
-        // }
-    }
+    handleVersionChange = (newVersion: string) => { this.setState({version: newVersion})    }
 
 
     async handleGenerateClick() {
+
+        const {isLoading, ckpt, pos_prompt, neg_prompt, seed, steps, cfg, sampler, scheduler, width, height, version} = this.state
+
         console.log('generation button clicked')
 
-        this.setState({isLoading: true})
-
         const wf = new Workflow(
-            this.state.ckpt,
-            this.state.pos_prompt.toString(),
-            this.state.neg_prompt.toString(),
-            this.state.seed,
-            this.state.steps,
-            this.state.cfg,
-            this.state.sampler,
-            this.state.scheduler,
-            this.state.width,
-            this.state.height,
-            this.state.version // assuming sdxl is always true for this example
+            ckpt,
+            pos_prompt.toString(),
+            neg_prompt.toString(),
+            seed,
+            steps,
+            cfg,
+            sampler,
+            scheduler,
+            width,
+            height,
+            version
+
         );
 
         if (this.state.pos_prompt.toString() === '') wf.setPrompt('empty');
 
         try {
-            const imagePath = await execGeneration(wf);
-            console.log('Generated image path:', imagePath);
+            this.handleIsLoadingChange(!isLoading)
 
-            this.props.onGeneration(imagePath, this.state.width, this.state.height, this.state.isLoading)
+            console.log('----------')
+            console.log(isLoading)
+            console.log('----------')
+
+            this.props.onPreGeneration(width, height, true)
+
+            const imagePath = await execGeneration(wf);
+
+            this.props.onGeneration(imagePath, false)
             this.setState({isLoading: false})
+            this.handleSeedChange(Math.floor(Math.random() * 1844674407370955))
+
         } catch (error) {
-            // Handle the error, e.g., show an error message to the user
             console.error('Error generating image:', error);
         }
 
@@ -123,8 +122,7 @@ export class KSampler extends Component<{onGeneration : (path: string, width: nu
 
     render() {
 
-        const { isLoading } = this.state
-
+        const { isLoading, seed } = this.state
         return (
             <>
                 <Flex w={'99%'} my={'12px'} bg={'gray.300'} flexDir={'row'} rounded={'7px'} p={2} mb={'4px'}>
@@ -134,7 +132,7 @@ export class KSampler extends Component<{onGeneration : (path: string, width: nu
                         <SamplerScheduler
                             onSamplerChange={this.handleSamplerChange}
                             onSchedulerChange={this.handleSchedulerChange} />
-                        <Seed onSeedChange={this.handleSeedChange} />
+                        <Seed value={seed} onSeedChange={this.handleSeedChange} />
                         <CustomSlider
                             title={'Steps'}
                             min={0} max={40} step={1} value={20}

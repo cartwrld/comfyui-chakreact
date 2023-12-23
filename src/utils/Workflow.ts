@@ -1,18 +1,19 @@
 'use client'
 
 export default class Workflow {
-    private pos_prompt: string;
-    private neg_prompt: string;
+    pos_prompt: string;
+    neg_prompt: string;
     private steps: number;
     private cfg: number;
-    private width: number;  // Assuming width and height should be numbers
-    private height: number;
-    private version: string;
-    private prefix: string;
+    width: number;
+    height: number;
+    version: string;
+    prefix: string;
     private seed: number;
-    private sampler: string;
-    private scheduler: string;
-    private ckpt: string;
+    sampler: string;
+    scheduler: string;
+    ckpt: string;
+    pathname: string;
 
     constructor(ckpt: string, posprompt: string, negprompt: string, seed?: number, steps?: number, cfg?: number,
                 sampler?: string, scheduler?: string, width?: number, height?: number, version?: string,) {
@@ -29,6 +30,7 @@ export default class Workflow {
         this.height = height || 1024
         this.version = version || 'SDXL'
         this.prefix = this.setPrefix(this.pos_prompt)
+        this.pathname = ''
     }
     setPrefix(p: string): string  {
         p = p.substring(0, 100);
@@ -45,6 +47,10 @@ export default class Workflow {
 
     checkForEmptyPrompt(p:string) : string {
         return p === '' ? 'empty' : p;
+    }
+
+    setPathName(path: string) {
+        this.pathname = path
     }
 
 

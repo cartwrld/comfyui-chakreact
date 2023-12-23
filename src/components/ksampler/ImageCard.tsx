@@ -1,7 +1,7 @@
 import React, {Component, ReactNode} from "react";
 import {Box, Button, ButtonGroup, Center, Flex, Heading} from "@chakra-ui/react";
-import {GeneratedImage} from "@/components/GeneratedImage";
-import {KSampler} from "@/components/KSampler";
+import {GeneratedImage} from "@/components/ksampler/GeneratedImage";
+import {KSampler} from "@/components/ksampler/KSampler";
 import {getHistory} from "@/utils/ComfyUtils";
 import Image from "next/image";
 import {type} from "os";
@@ -10,11 +10,7 @@ type CardHolderState = {
     paths: string[]
 }
 
-
 const API_URL = `http://localhost:3004/images`
-let square_paths = [];
-let portrait_paths = [];
-let landscape_paths = [];
 
 export class ImageCard extends Component<{}, CardHolderState> {
 
@@ -103,51 +99,49 @@ export class ImageCard extends Component<{}, CardHolderState> {
         return (
             <Flex flexDir={'column'} minW={'100%'} mt={0} justifyContent={'start'}>
 
-            <Center p={10} bg={'gray.700'} roundedTopRight={'15px'}>
-                <ButtonGroup>
-                    <Button
-                        bg={'gray.300'} shadow={'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.05) 0px 1px 2px;'}
-                        onClick={() => this.retrieveHistory()}>All</Button>
-                    <Button
-                        bg={'gray.300'} shadow={'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.05) 0px 1px 2px;'}
-                        onClick={() => this.retrieveSquare()}>Square</Button>
-                    <Button
-                        bg={'gray.300'} shadow={'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.05) 0px 1px 2px;'}
-                        me={1}
-                        onClick={() => this.retrievePortrait()}>Portrait</Button>
-                    <Button
-                        bg={'gray.300'} shadow={'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.05) 0px 1px 2px;'}
-                        me={1}
-                        onClick={() => this.retrieveLandscape()}>Landscape</Button>
-                </ButtonGroup>
-            </Center>
-        <Flex flexDir={'column'} justifyContent={'center'} overflow={'hidden'} w={'100%'}>
+                <Flex minH={'13vh'} bg={'gray.700'} roundedTopRight={'15px'} justifyContent={'center'}
+                      alignItems={'center'}>
+                    <ButtonGroup>
+                        <Button
+                            bg={'gray.300'} shadow={'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.05) 0px 1px 2px;'}
+                            onClick={() => this.retrieveHistory()}>All</Button>
+                        <Button
+                            bg={'gray.300'} shadow={'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.05) 0px 1px 2px;'}
+                            onClick={() => this.retrieveSquare()}>Square</Button>
+                        <Button
+                            bg={'gray.300'} shadow={'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.05) 0px 1px 2px;'}
+                            me={1}
+                            onClick={() => this.retrievePortrait()}>Portrait</Button>
+                        <Button
+                            bg={'gray.300'} shadow={'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.05) 0px 1px 2px;'}
+                            me={1}
+                            onClick={() => this.retrieveLandscape()}>Landscape</Button>
+                    </ButtonGroup>
+                </Flex>
+                <Flex flexDir={'column'} justifyContent={'center'} overflow={'hidden'} w={'100%'}>
 
-            {/*<Flex flexDir={'column'} justifyContent={'center'} >*/}
-            <Flex flexWrap={'wrap'} bg={'none'} maxH={'85vh'} minH={'85vh'} me={5}
-                  justifyContent={'space-around'}
-                  overflowX={'hidden'} overflowY={'scroll'}
-                  sx={{
-                      '&::-webkit-scrollbar': { // This block of code needs to be here in order for browsers other than firefox to display the scrollbar
-                          width: '16px', marginTop: '10px', borderRightRadius: '8px',
-                      }, '&::-webkit-scrollbar-thumb': {
-                          backgroundColor: `gray.300`, marginTop: '10px', borderRadius: '8px',
-                      }, '&::-webkit-scrollbar-track': {
-                          marginTop: '30px', paddingTop: '0px', backgroundColor: `gray.700`, borderRadius: '8px'
-                      }
-                  }}>
-                {
-                    paths.map((url, index) => (
-                        getHistoryImageCard(url, index)
-                    ))
-                }
+                    {/*<Flex flexDir={'column'} justifyContent={'center'} >*/}
+                    <Flex flexWrap={'wrap'} bg={'none'} maxH={'81vh'} minH={'81vh'} me={5}
+                          justifyContent={'space-around'}
+                          overflowX={'hidden'} overflowY={'scroll'}
+                          sx={{
+                              '&::-webkit-scrollbar': { // This block of code needs to be here in order for browsers other than firefox to display the scrollbar
+                                  width: '16px', marginTop: '10px', borderRightRadius: '8px',
+                              }, '&::-webkit-scrollbar-thumb': {
+                                  backgroundColor: `gray.300`, marginTop: '10px', borderRadius: '8px',
+                              }, '&::-webkit-scrollbar-track': {
+                                  marginTop: '30px', paddingTop: '0px', backgroundColor: `gray.700`, borderRadius: '8px'
+                              }
+                          }}>
+                        {
+                            paths.map((url, index) => (
+                                getHistoryImageCard(url, index)
+                            ))
+                        }
+                    </Flex>
+                </Flex>
             </Flex>
-        </Flex>
-            </Flex>
-        // </Flex>
-
-
-    )
+        )
     }
 }
 
@@ -158,7 +152,6 @@ function getHistoryImageCard(url: string, index: number) {
             <Flex p={0} justifyContent={'center'} alignContent={'center'} m={0}>
                 <Center bg={'gray.200'} rounded={'8px'} boxShadow={'rgba(0, 0, 0, 0.15) 0px 2px 8px'}
                         height={'fit-content'} p={3}>
-
                     <Image key={index} src={`${API_URL}/${url}`} alt={`image-${index}`} width={512} height={512}/>
                 </Center>
             </Flex>

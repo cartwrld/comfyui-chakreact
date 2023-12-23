@@ -1,22 +1,52 @@
+/* ========== ANIMATIONS ========== */
+
+/* DASHBOARD SHRINKING */
 @keyframes shrinkDashboard {
-  from  { width: 5%; }
-  to    { width: 20%; }
+  from  { width: 4%; }
+  to    { width: 13%; }
 }
-
 @keyframes expandDashboard {
-  from  { width: 20%; }
-  to    { width: 5%; }
+  from  { width: 13%; }
+  to    { width: 4%; }
+}
+.shrink {animation: shrinkDashboard 1s forwards;}
+.expand {animation: expandDashboard 1s forwards;}
+
+/* DASHBOARD ICON ROTATE*/
+@keyframes rotateLeft {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(180deg); }
+}
+@keyframes rotateRight {
+  from { transform: rotate(180deg); }
+  to   { transform: rotate(0deg); }
+}
+.flipLeft {animation: rotateLeft 1s forwards;}
+.flipRight {animation: rotateRight 1s forwards;}
+
+/* DASHBOARD BUTTON HEADINGS */
+@keyframes expandAnimation {
+  from { font-size: 0; opacity: 0; }
+  to   { font-size: 1rem; opacity: 1; }
+}
+@keyframes shrinkAnimation {
+  from { font-size: 1rem; opacity: 1 }
+  to   { font-size: 0; opacity: 0; }
+}
+.expandAnimation {
+  animation: expandAnimation 0.5s ease-in-out forwards;
+  padding: 0;
+}
+.shrinkAnimation {
+  animation: shrinkAnimation 0.5s ease-in-out forwards;
+  padding: 0;
 }
 
 
 
-.shrink {
-  animation: shrinkDashboard 1s forwards; /* Adjust timing as needed */
-}
 
-.expand {
-  animation: expandDashboard 1s forwards; /* Adjust timing as needed */
-}
+
+
 
 
 .main {
@@ -30,6 +60,7 @@
   /*background: rebeccapurple;*/
   border-radius: 17px;
   padding-bottom: 28px;
+  z-index: 999;
 }
 
 

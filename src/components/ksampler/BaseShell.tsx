@@ -1,7 +1,7 @@
 import React, {Component, ReactNode} from "react";
 import { Center, Flex } from "@chakra-ui/react";
-import {GeneratedImage} from "@/components/GeneratedImage";
-import {KSampler} from "@/components/KSampler";
+import {GeneratedImage} from "@/components/ksampler/GeneratedImage";
+import {KSampler} from "@/components/ksampler/KSampler";
 
 
 type BaseShellProps = {

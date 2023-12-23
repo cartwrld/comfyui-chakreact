@@ -4,22 +4,23 @@ import Workflow from "@/utils/Workflow";
 import * as fs from 'fs'
 import path from 'path'
 
+const API_URL = `http://localhost:3004`
+
 export default async function execGeneration(workflowData: Workflow): Promise<string> {
     try {
-        const response = await axios.post(`http://localhost:3004/generate`, workflowData, {
+        const response = await axios.post(`${API_URL}/generate`, workflowData, {
             withCredentials: true
         });
-        // Assuming the server responds with a path in the 'path' key
         return response.data.path;
     } catch (error) {
         console.error('Error:', error);
-        throw error; // Rethrow the error to handle it in the calling component
+        throw error;
     }
 }
 
 export async function getHistory(orientation?: string): Promise<string> {
     try {
-        let fetchURL = `http://localhost:3004/history`;
+        let fetchURL = `${API_URL}/history`;
 
         switch (orientation) {
             case 'square': fetchURL += '/square'; break
@@ -27,11 +28,9 @@ export async function getHistory(orientation?: string): Promise<string> {
             case 'landscape': fetchURL += '/landscape'; break
             default: break;
         }
-
         const response = await axios.get(fetchURL, {
             withCredentials: true
         });
-
         switch (orientation) {
             case 'square': return response.data.squarePaths
             case 'portrait': return response.data.portraitPaths
@@ -39,11 +38,26 @@ export async function getHistory(orientation?: string): Promise<string> {
             default: return response.data.paths
         }
 
-
     } catch (error) {
         console.error('Error:', error);
-        throw error; // Rethrow the error to handle it in the calling component
+        throw error;
     }
 }
 
+export async function getDBHistory(): Promise<any[]> {
+    try {
+        let fetchURL = `${API_URL}/history/database`;
 
+        const response = await axios.get(fetchURL, {
+            withCredentials: true
+        });
+
+        return response.data
+
+
+
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+}
