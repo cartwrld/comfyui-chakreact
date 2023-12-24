@@ -35,13 +35,13 @@ export class GeneratedImage extends Component<GeneratedImageProps, GeneratedImag
                     {
                         !isLoading ? (
                             width > height
-                                ? (<Image src={`${API_URL}/${imageUrl}`} alt="Generated Image" width={width} height={768}
-                                           unoptimized={true}/>)
-                                : (<Image src={`${API_URL}/${imageUrl}`} alt="Generated Image" width={768} height={height}
-                                           unoptimized={true}/>)
+                                ? (<Image src={`${API_URL}/${imageUrl}`} alt="Generated Image" width={768} height={height}
+                                          unoptimized={true}/>)
+                                : (<Image src={`${API_URL}/${imageUrl}`} alt="Generated Image" width={width} height={768}
+                                          unoptimized={true}/>)
                         ) : (width > height
-                                ? (<Center width={width} height={768}><Heading>Generating...</Heading></Center>)
-                                : (<Center width={768} height={height}><Heading>Generating...</Heading></Center>)
+                                ? (<Center width={768} height={height}><Heading>Generating...</Heading></Center>)
+                                : (<Center width={width} height={768}><Heading>Generating...</Heading></Center>)
                         )
                     }
 

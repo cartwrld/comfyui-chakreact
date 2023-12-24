@@ -51,11 +51,29 @@ export async function getDBHistory(): Promise<any[]> {
         const response = await axios.get(fetchURL, {
             withCredentials: true
         });
-
         return response.data
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+}
 
 
+export async function getHistoryByOrientation(orientation:string ): Promise<any[]> {
+    try {
 
+        let fetchURL = `${API_URL}/history/database`
+
+        switch (orientation) {
+            case 'square': fetchURL += '/square'; break
+            case 'portrait': fetchURL += '/portrait'; break
+            case 'landscape': fetchURL += '/landscape'; break
+            default: break;
+        }
+        const response = await axios.get(fetchURL, {
+            withCredentials: true
+        });
+        return response.data
     } catch (error) {
         console.error('Error:', error);
         throw error;

@@ -1,10 +1,12 @@
+'use client'
+
 import {Button, Center, Divider, Flex, Heading} from "@chakra-ui/react";
 import React, {Component} from "react";
 import {BiMenu} from "react-icons/bi";
 import Image from "next/image";
 import {FaHistory} from "react-icons/fa";
 import {FaCode, FaImages} from 'react-icons/fa6'
-import Router from 'next/router';
+import {useRouter} from 'next/router';
 import styles from '../app/page.module.css'
 import { IoIosArrowForward , IoIosArrowBack } from "react-icons/io";
 
@@ -28,21 +30,27 @@ export default class Dashboard extends Component<DashboardProps, DashboardState>
         };
     }
 
+
     handleToggleAnimation = () => {
         this.setState({isShrunk: !this.state.isShrunk});
     }
 
 
     handleGenerateClick = () => {
-        if (this.props.currentPage !== 'home') Router.push('/');
+        const router = useRouter()
+        if (this.props.currentPage !== 'home') router.push('/generate');
     }
 
 
     handleHistoryClick = () => {
-        if (this.props.currentPage !== 'history') Router.push('/history');
+        const router = useRouter()
+        if (this.props.currentPage !== 'history') router.push('/history').then((r) => {
+            console.log('rerouted')
+        });
     }
     handleTestingClick = () => {
-        if (this.props.currentPage !== 'testing') Router.push('/');
+        const router = useRouter()
+        if (this.props.currentPage !== 'testing') router.push('/testing');
     }
 
     render() {
