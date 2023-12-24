@@ -19,7 +19,8 @@ import {
     AiOutlineRadarChart
 } from "react-icons/ai";
 import {FcPositiveDynamic} from "react-icons/fc";
-import {FaPlus, FaMinus} from "react-icons/fa6";
+import {FaPlus, FaMinus, FaListUl} from "react-icons/fa6";
+import {BsFillGridFill, BsGrid3X3GapFill} from "react-icons/bs";
 
 let collection: Workflow[] = []
 const API_URL = `http://localhost:3004/images`
@@ -28,6 +29,7 @@ const API_URL = `http://localhost:3004/images`
 export default function Testing() {
     const [workflows, setWorkflows] = useState<Workflow[]>([]);
     const [selectedWorkflow, setSelectedWorkflow] = useState<Workflow | null>(null);
+    const [selectedLayout, setSelectedLayout] = useState<string>('grid-lg');
 
     useEffect(() => {
         handleInitFetch();
@@ -41,8 +43,12 @@ export default function Testing() {
         setSelectedWorkflow(null);
     }
 
+    async function adjustImageLayout(layout: string) {
+        setSelectedLayout(layout)
+    }
 
-    async function retrieveOrientation(orientation: string) {
+
+    async function retrieveOrientation(orientation?: string) {
         try {
             let orientationJSON = await getHistoryByOrientation(orientation); // Assuming getHistory makes a fetch call and returns JSON
             console.log(orientationJSON)
@@ -72,6 +78,10 @@ export default function Testing() {
                                 <Button
                                     bg={'gray.300'}
                                     shadow={'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.05) 0px 1px 2px;'}
+                                    onClick={() => retrieveOrientation('all')}>Square</Button>
+                                <Button
+                                    bg={'gray.300'}
+                                    shadow={'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.05) 0px 1px 2px;'}
                                     onClick={() => retrieveOrientation('square')}>Square</Button>
                                 <Button
                                     bg={'gray.300'}
@@ -85,9 +95,46 @@ export default function Testing() {
                                     onClick={() => retrieveOrientation('landscape')}>Landscape</Button>
                             </ButtonGroup>
                         </Flex>
+                        <Flex minH={'13vh'} bg={'gray.700'} roundedTopRight={'15px'} justifyContent={'center'}
+                              alignItems={'center'}>
+                            <ButtonGroup>
+                                <Button
+                                    bg={'gray.300'}
+                                    shadow={'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.05) 0px 1px 2px;'}
+                                    onClick={() => adjustImageLayout('list')}><FaListUl fontSize={'1.5em'}/></Button>
+                                <Button
+                                    bg={'gray.300'}
+                                    shadow={'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.05) 0px 1px 2px;'}
+                                    onClick={() => adjustImageLayout('grid-sm')}><BsFillGridFill fontSize={'1.5em'}/>
+                                </Button>
+                                <Button
+                                    bg={'gray.300'}
+                                    shadow={'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.05) 0px 1px 2px;'}
+                                    onClick={() => adjustImageLayout('grid-lg')}><BsGrid3X3GapFill fontSize={'1.7em'}/>
+                                </Button>
+
+                            </ButtonGroup>
+                        </Flex>
                     </Flex>
-                    <Flex minH={'75vh'}>
-                        {workflows.map((wf, index) => getWFImageCard(wf, index, handleImageClick))}
+                    <Flex minH={'75vh'} justifyContent={'center'} alignItems={'center'} flexWrap={'wrap'}
+                          overflowX={'hidden'} overflowY={'hidden'} pe={5}>
+                        <Flex maxH={'75vh'} overflowX={'hidden'} overflowY={'scroll'} justifyContent={'center'}
+                              flexDir={selectedLayout === 'list' ? 'column' : 'row'}
+                              alignItems={'center'} flexWrap={'wrap'}
+                              sx={{
+                                  '&::-webkit-scrollbar': { // This block of code needs to be here in order for browsers other than firefox to display the scrollbar
+                                      width: '16px', marginTop: '10px', borderRightRadius: '8px',
+                                  }, '&::-webkit-scrollbar-thumb': {
+                                      backgroundColor: `gray.300`, marginTop: '10px', borderRadius: '8px',
+                                  }, '&::-webkit-scrollbar-track': {
+                                      marginTop: '30px',
+                                      paddingTop: '0px',
+                                      backgroundColor: `gray.700`,
+                                      borderRadius: '8px'
+                                  }
+                              }}>
+                            {workflows.map((wf, index) => getWFImageCard(wf, index, handleImageClick))}
+                        </Flex>
                     </Flex>
                 </main>
             </Flex>
@@ -97,16 +144,19 @@ export default function Testing() {
 
                 <Modal isOpen={Boolean(selectedWorkflow)} onClose={closeModal} isCentered size={'xl'}>
                     <ModalOverlay/>
-                    <ModalContent minW={'50vw'} maxW={'60vw'} h={'fit-content'} fontSize={'1.5em'} borderRadius={'15px'}>
+                    <ModalContent minW={'50vw'} maxW={'60vw'} h={'fit-content'} fontSize={'1.5em'}
+                                  borderRadius={'15px'}>
                         <ModalHeader bg="gray.400" roundedTop={'15px'}>Workflow Details</ModalHeader>
                         <Flex flexDir={'row'} flexWrap={'nowrap'} p={5}>
-                            <Flex justifyContent={'center'} alignItems={'center'} p={2} rounded={'7px'} shadow={'0px 2px 5px rgba(0,0,0,0.2)'}>
-                                   <Image src={`${API_URL}/${selectedWorkflow.pathname}`} alt={`${selectedWorkflow.prefix}`}
-                                             width={selectedWorkflow.width / 2} height={selectedWorkflow.height / 2}/>
+                            <Flex justifyContent={'center'} alignItems={'center'} p={2} rounded={'7px'}
+                                  shadow={'0px 2px 5px rgba(0,0,0,0.2)'}>
+                                <Image src={`${API_URL}/${selectedWorkflow.pathname}`}
+                                       alt={`${selectedWorkflow.prefix}`}
+                                       width={selectedWorkflow.width / 2} height={selectedWorkflow.height / 2}/>
                             </Flex>
-                            <Flex flexDir={'column'} >
+                            <Flex flexDir={'column'}>
                                 <ModalCloseButton/>
-                                <ModalBody >
+                                <ModalBody>
                                     <Flex direction='column' gap='4'>
                                         <Flex justifyContent={'space-around'} alignContent={'center'}>
                                             <Heading fontSize={'1em'} fontWeight={'semibold'}>Checkpoint</Heading>
@@ -118,9 +168,9 @@ export default function Testing() {
                                         <Center>{selectedWorkflow?.prefix}</Center>
                                         <SimpleGrid columns={2} spacing={4} color={'gray.900'}>
                                             <Flex bg={'gray.200'} rounded={10} justifyContent={'center'}
-                                                  alignItems={'center'} >
+                                                  alignItems={'center'}>
                                                 <Flex justifyContent={'center'} alignItems={'center'} flexDir={'column'}
-                                                      gap="2" >
+                                                      gap="2">
                                                     <Flex justifyContent={'space-around'} alignContent={'center'}
                                                           w={'65%'}
                                                           py={1}>
@@ -132,7 +182,8 @@ export default function Testing() {
                                                             <FaPlus fontSize={'1em'}/>
                                                         </Center>
                                                     </Flex>
-                                                    <Center p={10} bg={'whitesmoke'} roundedBottom={'10px'}>{selectedWorkflow?.pos_prompt}</Center>
+                                                    <Center p={10} bg={'whitesmoke'}
+                                                            roundedBottom={'10px'}>{selectedWorkflow?.pos_prompt}</Center>
                                                 </Flex>
                                             </Flex>
                                             <Box bg={'#ee9090'} rounded={10}>
@@ -177,15 +228,39 @@ export default function Testing() {
 
 
     function getWFImageCard(wf: Workflow, index: number, onClick: (workflow: Workflow) => void) {
+        const smfactor = 2;
+        const lgfactor = 3;
+
         return (
             <Button w={'fit-content'} h={'fit-content'} p={0} m={10} key={index}
                     onClick={() => onClick(wf)}>
-                <Flex p={0} justifyContent={'center'} alignContent={'center'} m={0}>
-                    <Center bg={'gray.200'} rounded={'8px'} boxShadow={'rgba(0, 0, 0, 0.15) 0px 2px 8px'}
-                            height={'fit-content'} p={3}>
-                        <Image key={index} src={`${API_URL}/${wf.pathname}`} alt={'img'} width={512} height={512}/>
-                    </Center>
-                </Flex>
+                {
+                    selectedLayout === 'list'
+                    ? (
+                            <Flex p={0} flexDir={'column'} justifyContent={'center'} alignItems={'center'} m={0} bg={'red'}>
+                                <Center>{wf.prefix}</Center>
+                            </Flex>
+
+                            ) : (
+                        <Flex p={0} justifyContent={'center'} alignItems={'center'} m={0}>
+                            <Center bg={'gray.200'} rounded={'8px'} boxShadow={'rgba(0, 0, 0, 0.15) 0px 2px 8px'}
+                                    height={'fit-content'} p={3}>
+                                {
+                                    selectedLayout === 'grid-sm'
+                                        ? (
+                                            <Image key={index} src={`${API_URL}/${wf.pathname}`} alt={'img'}
+                                                   width={wf.width / smfactor} height={wf.height / smfactor}/>
+                                        ) : (
+                                            <Image key={index} src={`${API_URL}/${wf.pathname}`} alt={'img'}
+                                                   width={wf.width / lgfactor} height={wf.height / lgfactor}/>
+                                        )
+                                }
+
+                            </Center>
+                        </Flex>
+                    )
+                }
+
             </Button>
         );
     }

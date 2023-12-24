@@ -59,7 +59,7 @@ export async function getDBHistory(): Promise<any[]> {
 }
 
 
-export async function getHistoryByOrientation(orientation:string ): Promise<any[]> {
+export async function getHistoryByOrientation(orientation?:string ): Promise<any[]> {
     try {
 
         let fetchURL = `${API_URL}/history/database`

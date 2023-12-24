@@ -7,7 +7,6 @@ import {GeneratedImage} from "@/components/ksampler/GeneratedImage";
 import {BaseShell} from "@/components/ksampler/BaseShell";
 import React, {useState} from "react";
 import {auto} from "@popperjs/core";
-import DashboardOG from "@/components/DashboardOG";
 import NavDrawer from "@/components/NavDrawer";
 
 
