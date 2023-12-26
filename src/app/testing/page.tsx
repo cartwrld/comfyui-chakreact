@@ -117,8 +117,8 @@ export default function Testing() {
                         </Flex>
                     </Flex>
                     <Flex minH={'75vh'} justifyContent={'center'} alignItems={'center'} flexWrap={'wrap'}
-                          overflowX={'hidden'} overflowY={'hidden'} pe={5}>
-                        <Flex maxH={'75vh'} overflowX={'hidden'} overflowY={'scroll'} justifyContent={'center'}
+                          overflowX={'hidden'} overflowY={'hidden'} pe={5} w={'100%'}>
+                        <Flex maxH={'75vh'} overflowX={'hidden'} w={'100%'} overflowY={'scroll'} justifyContent={'center'}
                               flexDir={selectedLayout === 'list' ? 'column' : 'row'}
                               alignItems={'center'} flexWrap={'wrap'}
                               sx={{
@@ -158,6 +158,42 @@ export default function Testing() {
                                 <ModalCloseButton/>
                                 <ModalBody>
                                     <Flex direction='column' gap='4'>
+                                        <SimpleGrid columns={2} spacing={4} color={'gray.900'}>
+                                            <Flex bg={'gray.200'} rounded={10} justifyContent={'center'}
+                                                  alignItems={'center'}
+                                                  shadow={'rgba(60, 64, 67, 0.1) 0px 1px 5px 0px, rgba(60, 64, 67, 0.15) 0px 1px 5px 1px;'}>
+                                                <Flex justifyContent={'center'} alignItems={'center'} flexDir={'column'}
+                                                      gap="2">
+                                                    <Flex justifyContent={'space-around'} alignContent={'center'}
+                                                          w={'65%'}
+                                                          py={1}>
+                                                            <Heading fontWeight={'semibold'} fontSize={'1em'} pt={1}>
+                                                                Positive Prompt
+                                                            </Heading>
+                                                    </Flex>
+                                                    <Center p={10} bg={'whitesmoke'} fontSize={'0.8em'}
+                                                            roundedBottom={'10px'}>{selectedWorkflow?.pos_prompt}</Center>
+
+                                                </Flex>
+                                            </Flex>
+                                            <Flex bg={'gray.200'} rounded={10} justifyContent={'center'}
+                                                  alignItems={'center'}
+                                                  shadow={'rgba(60, 64, 67, 0.1) 0px 1px 5px 0px, rgba(60, 64, 67, 0.15) 0px 1px 5px 1px;'}>
+                                                <Flex justifyContent={'center'} alignItems={'center'} flexDir={'column'}
+                                                      gap="2" w={'100%'}>
+                                                    <Flex justifyContent={'space-around'} alignContent={'center'}
+                                                          w={'100%'}
+                                                          py={1}>
+                                                        <Heading fontWeight={'semibold'} fontSize={'1em'} pt={1}>
+                                                            Negative Prompt
+                                                        </Heading>
+                                                    </Flex>
+                                                    <Center p={10} bg={'whitesmoke'} fontSize={'0.8em'}
+                                                            roundedBottom={'10px'} minW={'100%'}>{selectedWorkflow?.neg_prompt}</Center>
+                                                </Flex>
+                                            </Flex>
+
+                                        </SimpleGrid>
                                         <Flex justifyContent={'space-around'} alignContent={'center'}>
                                             <Heading fontSize={'1em'} fontWeight={'semibold'}>Checkpoint</Heading>
                                             <Center fontSize='xl'>
@@ -166,52 +202,11 @@ export default function Testing() {
                                         </Flex>
 
                                         <Center>{selectedWorkflow?.prefix}</Center>
-                                        <SimpleGrid columns={2} spacing={4} color={'gray.900'}>
-                                            <Flex bg={'gray.200'} rounded={10} justifyContent={'center'}
-                                                  alignItems={'center'}>
-                                                <Flex justifyContent={'center'} alignItems={'center'} flexDir={'column'}
-                                                      gap="2">
-                                                    <Flex justifyContent={'space-around'} alignContent={'center'}
-                                                          w={'65%'}
-                                                          py={1}>
-                                                        <Center>
-                                                            <Heading fontWeight={'semibold'}
-                                                                     fontSize={'1em'}>Positive Prompt</Heading>
-                                                        </Center>
-                                                        <Center mt={1}>
-                                                            <FaPlus fontSize={'1em'}/>
-                                                        </Center>
-                                                    </Flex>
-                                                    <Center p={10} bg={'whitesmoke'}
-                                                            roundedBottom={'10px'}>{selectedWorkflow?.pos_prompt}</Center>
-                                                </Flex>
-                                            </Flex>
-                                            <Box bg={'#ee9090'} rounded={10}>
-                                                <Flex justifyContent={'center'} alignItems={'center'} flexDir={'column'}
-                                                      gap="2">
-
-                                                    <Flex justifyContent={'space-around'} alignContent={'center'}
-                                                          w={'65%'}
-                                                          pt={3} pb={2}>
-                                                        <Center>
-                                                            <Heading fontWeight={'semibold'}
-                                                                     fontSize={'1em'}>Negative Prompt</Heading>
-                                                        </Center>
-                                                        <Center mt={2}>
-                                                            <FaMinus fontSize={'1.3em'}/>
-                                                        </Center>
-                                                    </Flex>
-                                                    <Center bg={'whitesmoke'}>{selectedWorkflow?.neg_prompt}</Center>
-                                                </Flex>
-                                            </Box>
-
-                                        </SimpleGrid>
-
                                         <Flex align="center" gap="2">
                                             <AiOutlineRadarChart/> {/* Example icon for dimensions */}
                                             <Center>{selectedWorkflow?.width} x {selectedWorkflow?.height}</Center>
                                         </Flex>
-
+                                        {PosNegPrompt('Positive', selectedWorkflow?.pos_prompt)}
                                         <HStack spacing={4}>
                                             <Tag fontSize={'0.7em'} p={1} px={2}>{selectedWorkflow?.sampler}</Tag>
                                             <Tag>{selectedWorkflow?.scheduler}</Tag>
@@ -226,6 +221,14 @@ export default function Testing() {
         </>
     );
 
+    function PosNegPrompt(type: string, prompt?: string) {
+        return (
+            <Flex flexDir={'column'} bg={'gray.200'} rounded={'10px'} shadow={'rgba(0, 0, 0, 0.15) 0px 1px 4px'}>
+                <Center fontWeight={'semibold'} p={2}>{type} Prompt</Center>
+                <Center bg={'whitesmoke'} roundedBottom={'10px'}>{prompt}</Center>
+            </Flex>
+        );
+    }
 
     function getWFImageCard(wf: Workflow, index: number, onClick: (workflow: Workflow) => void) {
         const smfactor = 2;
@@ -237,8 +240,12 @@ export default function Testing() {
                 {
                     selectedLayout === 'list'
                     ? (
-                            <Flex p={0} flexDir={'column'} justifyContent={'center'} alignItems={'center'} m={0} bg={'red'}>
-                                <Center>{wf.prefix}</Center>
+                            <Flex p={0} flexDir={'row'} bg={'darkred'} justifyContent={'center'} alignItems={'center'} m={0} >
+                                <Flex maxH={'128px'}>
+                                    <Image key={index} src={`${API_URL}/${wf.pathname}`} alt={'img'}
+                                           width={128} height={128}/>
+                                    <Center>{wf.prefix}</Center>
+                                </Flex>
                             </Flex>
 
                             ) : (
