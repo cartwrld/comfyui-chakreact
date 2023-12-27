@@ -3,13 +3,13 @@
 export default class Workflow {
     pos_prompt: string;
     neg_prompt: string;
-    private steps: number;
-    private cfg: number;
+    steps: number;
+    cfg: number;
     width: number;
     height: number;
     version: string;
     prefix: string;
-    private seed: number;
+    seed: number;
     sampler: string;
     scheduler: string;
     ckpt: string;

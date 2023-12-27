@@ -97,13 +97,13 @@ export class Checkpoint extends Component<CKPTProps, CKPTState> {
                 fontWeight={'semibold'} color={'gray.900'} bg={'#f6f8fc'}
                     shadow={'rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.05) 0px 1px 2px;'}
                     sx={{
-                    '&::-webkit-scrollbar': { // This block of code needs to be here in order for browsers other than firefox to display the scrollbar
-                        width: '16px', marginTop: '10px', borderRightRadius: '8px',
-                    }, '&::-webkit-scrollbar-thumb': {
-                        backgroundColor: `gray.600`, marginTop: '10px', borderRadius: '8px',
-                    }, '&::-webkit-scrollbar-track': {
-                        paddingTop: '10px', backgroundColor: `gray.200`
-                    }}}>
+                        '&::-webkit-scrollbar': { // This block of code needs to be here in order for browsers other than firefox to display the scrollbar
+                            width: '16px', marginTop: '10px', borderRightRadius: '8px',
+                        }, '&::-webkit-scrollbar-thumb': {
+                            backgroundColor: `gray.400`, marginTop: '10px', borderRadius: '8px',
+                        }, '&::-webkit-scrollbar-track': {
+                            paddingTop: '10px', backgroundColor: `gray.700`, borderRadius: '8px'
+                        }}}>
                 {
                     ckptlist.map((ckpt, index) => (<option key={index} value={ckpt}
                                                         style={{
