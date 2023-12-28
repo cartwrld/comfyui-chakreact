@@ -45,15 +45,16 @@ export default function Dashboard(currentPage: string) {
 
 
     return (
-        <Flex className={isShrunk ? styles.expand : styles.shrink}
+        <Flex
+            className={isShrunk ? styles.expand : styles.shrink}
               flexDir={'column'} bg={'gray.500'} alignItems={'center'}
               roundedLeft={'20px'}
               roundedBottomStart={'15px'}
               shadow={'1px 0 10px rgba(0,0,0,0.1)'}>
-            <Flex justifyContent={'center'} alignItems={'center'} bg={'gray.600'} w={'100%'} roundedTopLeft={'16px'}>
-                <Image src={'/images/cwlogo_final_transparent_blk.png'} alt={'cw_logo'} width={200} height={200}/>
+            <Flex justifyContent={'center'} alignItems={'center'} bg={'gray.700'} w={'100%'} roundedTopLeft={'16px'}>
+                <Image src={'/images/cwlogo_final_transparent_blk.png'} alt={'cw_logo'} width={196} height={196}/>
             </Flex>
-            <Divider/>
+            <Divider filter={'invert(1)'}/>
             <Button onClick={handleToggleAnimation} mb={0} rounded={0} bg={'gray.600'}
                     ps={7}
                     width={'100%'} height={'fit-content'} py={3} justifyContent={'start'}>
@@ -68,7 +69,8 @@ export default function Dashboard(currentPage: string) {
 
             </Button>
 
-            <Divider6/>
+            <Divider2/>
+            <Divider2/>
 
             {/*<Button onClick={() => navigate('generate')} mb={0} rounded={0} bg={'gray.500'} ps={8}*/}
             {/*        width={'100%'} height={'fit-content'} py={3} justifyContent={'start'}>*/}
@@ -92,7 +94,7 @@ export default function Dashboard(currentPage: string) {
 
     function DashboardBTN(route: string, title: string) {
         return (
-            <Button onClick={() => navigate(route)} mb={0} rounded={0} bg={'#586476'} ps={8}
+            <Button onClick={() => navigate(route)} mb={0} rounded={0} bg={'greay.400'} ps={8}
                     width={'100%'} height={'fit-content'} py={3} justifyContent={'start'}>
                 <Flex pt={2} pb={2}>
                     {route === 'generate'

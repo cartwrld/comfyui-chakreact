@@ -2,15 +2,15 @@
 
 /* DASHBOARD SHRINKING */
 @keyframes shrinkDashboard {
-  from  { width: 4%; }
-  to    { width: 13%; }
+  from  { width: 100px; }
+  to    { width: 289px; }
 }
 @keyframes expandDashboard {
-  from  { width: 13%; }
-  to    { width: 4%; }
+  from  { width: 289px; }
+  to    { width: 100px; }
 }
-.shrink {animation: shrinkDashboard 1s forwards;}
-.expand {animation: expandDashboard 1s forwards;}
+.shrink {animation: shrinkDashboard 1s ease forwards; z-index: 99;}
+.expand {animation: expandDashboard 1s ease forwards; z-index: 99;}
 
 /* DASHBOARD ICON ROTATE*/
 @keyframes rotateLeft {

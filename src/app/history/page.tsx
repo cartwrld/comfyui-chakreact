@@ -149,7 +149,8 @@ export default function History() {
                     {/* =========================================================== */}
 
 
-                    <Flex minH={'81.1vh'} justifyContent={'center'} alignItems={'center'} flexWrap={'wrap'} roundedBottomEnd={'15px'}
+                    <Flex minH={'81.1vh'} justifyContent={'center'} alignItems={'center'} flexWrap={'wrap'}
+                          roundedBottomEnd={'15px'}
                           overflowX={'hidden'} overflowY={'hidden'} pe={5} w={'100%'} bg={'gray.600'}>
                         <Flex minH={'81.1vh'} maxH={'82vh'} overflowX={'hidden'} w={'100%'} overflowY={'scroll'}
                               justifyContent={'center'}
@@ -207,7 +208,8 @@ export default function History() {
     }
 
     function getClickModal(swf: any) {
-        return (<Modal isOpen={Boolean(selectedWorkflow)} onClose={closeModal} isCentered size={'xl'}>
+        return (
+            <Modal isOpen={Boolean(selectedWorkflow)} onClose={closeModal} isCentered size={'xl'}>
                 <ModalOverlay/>
                 <ModalContent minW={'50vw'} h={'fit-content'} maxH={'90vh'} fontSize={'1.5em'}
                               borderRadius={'15px'} bg={'gray.600'} overflowY={'hidden'}>
@@ -223,15 +225,14 @@ export default function History() {
                                 paddingTop: '10px', backgroundColor: `gray.700`, borderRadius: '8px'
                             }
                         }}>
-
                             <Flex justifyContent={'center'} alignItems={'center'}>
-                                <Flex justifyContent={'center'} alignItems={'center'} p={2} rounded={'7px'}
+                                <Button justifyContent={'center'} alignItems={'center'} p={2} rounded={'7px'}
                                       shadow={'0px 2px 5px rgba(0,0,0,0.2)'} bg={'gray.400'} h={'fit-content'}
                                       width={'fit-content'}>
-                                    <Image src={`${API_URL}/${swf.pathname}`}
-                                           alt={`${swf.prefix}`}
+
+                                    <Image src={`${API_URL}/${swf.pathname}`} alt={`${swf.prefix}`}
                                            width={swf.width / 2} height={swf.height / 2}/>
-                                </Flex>
+                                </Button>
                             </Flex>
                             <Flex flexDir={'column'} mt={4} ms={4} justifyContent={'center'}
                                   alignItems={'center'} w={'100%'}>
